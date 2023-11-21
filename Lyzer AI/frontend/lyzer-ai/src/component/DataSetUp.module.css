@@ -1,0 +1,119 @@
+
+/* Styling for the container */
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  /* Styling for the headings */
+ .heading {
+    font-size: 3rem;
+    color: #333;
+  }
+
+  .headingData{
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 600;
+
+  }
+  
+ .subHeading  {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #666;
+    margin-top: 1.5rem;
+    margin-bottom: 20px;
+  }
+  
+  
+  /* Styling for the content box */
+  .box {
+    border: 2px dashed #ddd;
+    border-radius: 5px;
+    padding: 1.5rem;
+    margin: 2.5rem;
+    font-size: 16px;
+    color: #333;
+    max-height: 300px; 
+    overflow: auto; 
+  }
+  .editBtn {
+    border: none;
+    border-radius: 100px;
+    padding: 8px 15px;
+    margin: 0 6px;
+  }
+  .deleteBtn {
+    border: none;
+    border-radius: 100px;
+    padding: 8px 15px;
+    margin: 0 6px;
+  }
+  
+  input[type="file"] {
+    display: none;
+  }
+
+  .headingData{
+    margin: 0;
+    padding: 0;
+  }
+
+ 
+
+.uploadBtnLabel {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px ;
+    margin-top: 10px;
+    cursor: pointer;
+    width: fit-content;
+    display: inline;
+    
+  }
+  .uploadBtn {
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 100px;
+    padding: 10px 20px;
+    margin: 0 10px;
+  }
+  .createBtn {
+    border: none;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 100px;
+    padding: 10px 20px;
+    margin: 0 10px;
+  }
+
+
+.fileTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.8rem; 
+  }
+  
+  .fileTable th,
+  .fileTable td {
+    border: 1px solid #ddd; /* Add borders to table cells */
+    padding: 8px;
+    text-align: center;
+  }
+  
+  .fileTable th {
+    background-color: #f2f2f2;
+  }
+  
+
+  .fileTable tbody tr {
+    margin-bottom: 10px;
+  }
+  
