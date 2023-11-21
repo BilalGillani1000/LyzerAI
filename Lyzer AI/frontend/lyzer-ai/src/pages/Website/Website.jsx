@@ -20,7 +20,7 @@ const Website = () => {
         value={url}
         onChange={(e) => setUrl(e.target.value)}
       />
-      <button className={styles.fetchBtn} onClick={handleFetchData}>Fetch Text</button>
+      <button className={styles.fetchBtn} onClick={handleFetchData}>Fetch Links</button>
 
       <div>
         {/* Display the fetched text */}
