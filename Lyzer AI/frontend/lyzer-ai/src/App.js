@@ -1,7 +1,7 @@
 
 import './App.css';
-import AppRouter from './component/AppRouter';
-import { auth } from "./utils/init-firebase";
+import AppRouter from './component/AppRouter.jsx';
+import { auth } from "./utils/init-firebase.js";
 
 
 function App() {

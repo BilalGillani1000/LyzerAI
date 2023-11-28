@@ -1,6 +1,7 @@
 const express = require('express');
 const multer = require('multer');
-const File = require('../model/file'); // Import the File model
+const File = require('../model/file');
+const User=require("../model/user"); // Import the File model
 const pdf = require("pdf-parse");
 const mammoth = require("mammoth");
 
@@ -92,6 +93,7 @@ router.post("/upload", upload.array("files"), async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 });
+
 
 router.put("/files/:fileId", async (req, res) => {
     try {

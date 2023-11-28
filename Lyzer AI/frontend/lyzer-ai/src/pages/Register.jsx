@@ -4,6 +4,7 @@ import { createUserWithEmailAndPassword,sendEmailVerification } from "firebase/a
 import styles from "./RegisterPage.module.css"; 
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const RegisterPage = () => {
   const [fullName, setFullName] = useState("");
@@ -16,10 +17,17 @@ const RegisterPage = () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-  
       await sendEmailVerification(user);
+      const response=await axios.post("http://localhost:5000/newregistration", {email});
+      if(response.data.message){
+        console.log(response.data.message);
+        console.log("New User Added");
+      }else {
+        console.log("Not Added");
+      }
       alert("We have sent you an email verification link");
-  
+      
+      
       console.log(user);
       navigate('/signin');
     } catch (error) {

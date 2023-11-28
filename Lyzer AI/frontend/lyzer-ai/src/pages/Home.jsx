@@ -15,7 +15,6 @@ import { auth } from "../utils/init-firebase";
 const Home = () => {
     console.log(auth.currentUser);
     const [benefit,setBenefit]=useState({});
-    const [opened,setOpened]=useState(false);
     const[fresh,setFresh]=useState(true);
     function handleClick(id) {
 

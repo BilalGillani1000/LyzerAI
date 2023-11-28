@@ -1,5 +1,5 @@
 import { Outlet, Navigate } from "react-router-dom";
-import { auth } from "../utils/init-firebase";
+import { auth } from "../utils/init-firebase.js";
 import { useAuthState } from "react-firebase-hooks/auth";
 
 const PrivateRoutesLayout = () => {
