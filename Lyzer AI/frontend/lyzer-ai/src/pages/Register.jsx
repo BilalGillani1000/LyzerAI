@@ -27,7 +27,6 @@ const RegisterPage = () => {
       }
       alert("We have sent you an email verification link");
       
-      
       console.log(user);
       navigate('/signin');
     } catch (error) {

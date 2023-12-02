@@ -8,6 +8,8 @@ const axios = require('axios');
 const cheerio = require('cheerio');
 const fs = require('fs');
 const User=require("./model/user.js");
+const { Console } = require("console");
+const { userInfo } = require("os");
 
 const app = express();
 
@@ -60,20 +62,18 @@ app.post("/newregistration", async (req,res)=> {
 });
 
 
-app.post("/request/wordcount", function (req,res) {
-  const {email}=req.body;
-  console.log(email);
+app.post("/request/wordcount", async (req,res) => {
+  const {name}=req.body;
   let wordCount=0;
+  console.log("request received for wordCount");
   try {
-    User.findOne({name:email})
+    console.log(name);
+    User.findOne({name:name})
         .then(function (user) {
           if (user) {
             // User found
+            console.log(user);
             wordCount=user.wordCount;
-            res.json({wordCount});
-          } else {
-            // No user found
-            console.log("User not found for word count");
             res.json({wordCount});
           }
         })
@@ -88,12 +88,16 @@ app.post("/request/wordcount", function (req,res) {
 })
 
 app.post("/crawl", async (req, res) => {
-  const { url } = req.body;
+  console.log(req.body);
+  const url = req.body.url;
+  const name=req.body.name;
   const data=[];
   let wordcount = 0;
+  let newNum=0;
 
   try {
     const response = await axios.get(url);
+    // console.log(response);
     const $ = cheerio.load(response.data);
 
     // Extract information using Cheerio selectors
@@ -113,10 +117,12 @@ app.post("/crawl", async (req, res) => {
       const href = $(this).attr("href");
       if (href) {
         if (href.includes("https")) {
+          if(!(href.includes("login") || href.includes("signup") || href.includes("signin")))
             hrefsArray.push(href);
-        }
-         if(!(href.includes("login") || href.includes("signup") || href.includes("signin"))){
+        }else {
+          if(!(href.includes("login") || href.includes("signup") || href.includes("signin"))){
             hrefsArray.push(url+href);
+        }
         }
       }
     });
@@ -124,9 +130,10 @@ app.post("/crawl", async (req, res) => {
     await Promise.all(
         hrefsArray.map(async (a) => {
           try {
-            console.log(a);
+            // console.log(a);
           const response = await axios.get(a);
           const $ = cheerio.load(response.data);
+          console.log("Successfull");
   
           const pageTitle = $('title').text();
           const html = $("p,h1,h2,h3,h4,h5,h6").text();
@@ -143,10 +150,21 @@ app.post("/crawl", async (req, res) => {
 
         })
       );
+      
     // Save the data to a JSON file
     fs.writeFileSync('output.json', JSON.stringify(data, null, 2));
+    await User.updateOne({name:name},{$inc:{wordCount:wordcount}});
     console.log("Total Words: "+wordcount);
-    res.json({ success: true, data });
+    await User.findOne({name:name})
+      .then(function (user) {
+        if(user){
+          newNum=user.wordCount;
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+    res.json({ success: true, data, newNum });
   } catch (error) {
     console.error('Error:', error.message);
     res.status(500).json({ success: false, error: error.message });
